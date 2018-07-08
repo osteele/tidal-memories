@@ -9,7 +9,7 @@ const Footer = () => (
     <footer className="ui vertical footer segment">
         <div className="ui center aligned container">
             View on{' '}
-            <a href="https://github.com/osteele/matrix-photo-gallery">GitHub</a>
+            <a href="https://github.com/osteele/tidal-memories">GitHub</a>
         </div>
     </footer>
 );
