@@ -7,11 +7,11 @@ verify_ssl = true
 python_full_version = "3.6.5"
 
 [scripts]
+client = "bash -c 'cd client && yarn start'"
 server = "env FLASK_APP=server:app FLASK_ENV=development flask run"
 socket-server = "env FLASK_ENV=development gunicorn -k flask_sockets.worker server:app -b :5000"
-client = "bash -c 'cd client && yarn start'"
-deploy-backend = "git push heroku +master"
-deploy-frontend = "bash -c 'cd client && yarn deploy'"
+deploy-client = "bash -c 'cd client && yarn deploy'"
+deploy-server = "git push heroku +master"
 import-images = "env FLASK_APP=server:app FLASK_ENV=development flask import-images"
 make-small-thumbnails = "env FLASK_APP=server:app FLASK_ENV=development flask make-small-thumbnails"
 update-server = "heroku run flask read-events --count 200"
