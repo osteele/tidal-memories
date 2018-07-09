@@ -1,10 +1,10 @@
 import _ from 'lodash';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import { setBackground, setViewClass, togglePaused } from './data/actions';
+import { togglePaused } from './data/actions';
 import { time2tide } from './data/tides';
 import { onceish, truncFloat } from './utils';
-import { withImages, withViewClass } from './wrappers';
+import { withImages } from './wrappers';
 
 const SAND_COLOR = '#b8b09b';
 const TIDAL_COLOR = '#b8b09b';
@@ -314,12 +314,10 @@ const addRandomRadii = images => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    setBackground: color => dispatch(setBackground(color)),
-    setViewClass: viewClass => dispatch(setViewClass(viewClass)),
     togglePaused: () => dispatch(togglePaused())
 });
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(withImages(withViewClass('tides')(Tides)));
+)(withImages(Tides));

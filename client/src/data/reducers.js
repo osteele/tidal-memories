@@ -3,15 +3,6 @@ import { ActionTypes } from './actions';
 export const apiClient = (state = {}) => state;
 export const audioBaseUrl = (state = {}) => state;
 
-export const background = (state = 'white', action) => {
-    switch (action.type) {
-        case ActionTypes.SET_BACKGROUND:
-            return action.background;
-        default:
-            return state;
-    }
-};
-
 export const heartbeat = (state = 0, action) => {
     switch (action.type) {
         case ActionTypes.SET_CURRENT_TIME:
@@ -61,15 +52,6 @@ export const sortOrder = (state = 'date-desc', action) => {
     switch (action.type) {
         case ActionTypes.SET_SORT_ORDER:
             return action.sortOrder;
-        default:
-            return state;
-    }
-};
-
-export const viewClass = (state = null, action) => {
-    switch (action.type) {
-        case ActionTypes.SET_VIEW_CLASS:
-            return action.viewClass;
         default:
             return state;
     }

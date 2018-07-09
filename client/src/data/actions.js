@@ -6,7 +6,6 @@ export const ActionTypes = {
     SET_IMAGES: 'SET_IMAGES',
     SET_IMAGE_SIZE: 'SET_IMAGE_SIZE',
     SET_SORT_ORDER: 'SET_SORT_ORDER',
-    SET_BACKGROUND: 'SET_BACKGROUND',
     SET_CURRENT_TIME: 'SET_CURRENT_TIME',
     SET_SENSOR_DATA: 'SET_SENSOR_DATA',
     SET_VIEW_CLASS: 'SET_VIEW_CLASS',
@@ -26,7 +25,7 @@ const decodeImage = image => {
     };
 };
 
-export const getEvents = () => (dispatch, getStore) =>
+export const getImageList = () => (dispatch, getStore) =>
     getStore()
         .apiClient.get('/images/')
         .then(({ data }) =>
@@ -35,14 +34,6 @@ export const getEvents = () => (dispatch, getStore) =>
                 data: data.map(decodeImage)
             })
         );
-
-export const setBackground = background => {
-    document.body.style.backgroundColor = background;
-    return {
-        type: ActionTypes.SET_BACKGROUND,
-        background
-    };
-};
 
 export const setImageSize = imageSize => ({
     type: ActionTypes.SET_IMAGE_SIZE,
@@ -59,13 +50,6 @@ export const setSortOrder = sortOrder => ({
     type: ActionTypes.SET_SORT_ORDER,
     sortOrder
 });
-
-export const setViewClass = viewClass => (dispatch, getStore) =>
-    getStore().viewClass === viewClass ||
-    dispatch({
-        type: ActionTypes.SET_VIEW_CLASS,
-        viewClass
-    });
 
 export const togglePaused = () => ({ type: ActionTypes.TOGGLE_PAUSED });
 

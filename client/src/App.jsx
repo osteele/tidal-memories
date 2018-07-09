@@ -1,6 +1,14 @@
-import { connect } from 'react-redux';
 import './site.scss';
 import Tides from './Tides';
+
+const App = ({ background }) => (
+    <div className="app">
+        <main className="ui container">
+            <Tides />
+        </main>
+        <Footer />
+    </div>
+);
 
 const Footer = () => (
     <footer className="ui vertical footer segment">
@@ -11,18 +19,4 @@ const Footer = () => (
     </footer>
 );
 
-const App = ({ background, viewClass }) => (
-    <div className={'app ' + viewClass} style={{ background }}>
-        <main className="ui container">
-            <Tides />
-        </main>
-        <Footer />
-    </div>
-);
-
-const mapStateToProps = ({ background, viewClass }) => ({
-    background,
-    viewClass
-});
-
-export default connect(mapStateToProps)(App);
+export default App;

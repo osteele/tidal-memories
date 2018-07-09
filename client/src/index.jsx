@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import 'semantic-ui-css/semantic.css';
 import App from './App';
 import {
-    getEvents,
+    getImageList,
     setSensorData,
     setWindowSize,
     updateTime
@@ -25,7 +25,7 @@ const store = setupStore({
     paused: Boolean(window.location.hash.match(/[#&]paused\b/))
 });
 
-store.dispatch(getEvents());
+store.dispatch(getImageList());
 
 setInterval(
     () => store.getState().paused || store.dispatch(updateTime()),
