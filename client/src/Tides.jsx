@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import { togglePaused } from './data/actions';
 import { time2tide } from './data/tides';
 import { onceish, truncFloat } from './utils';
 import { withImages } from './wrappers';
@@ -24,14 +23,7 @@ const SENSOR_DATA_AGE = 10 * 1000;
 let waves = [];
 let lastMouse = null;
 
-const Tides = ({
-    audioBaseUrl,
-    heartbeat,
-    images,
-    sensorData,
-    togglePaused,
-    windowSize
-}) => {
+const Tides = ({ audioBaseUrl, heartbeat, images, sensorData, windowSize }) => {
     // dimensions
     const windowWidth = windowSize.width;
     const windowHeight = windowSize.height;
@@ -110,11 +102,7 @@ const Tides = ({
 
     return (
         <section>
-            <svg
-                id="tides-container"
-                onMouseMove={onMouseMove}
-                onMouseDown={togglePaused}
-            >
+            <svg id="tides-container" onMouseMove={onMouseMove}>
                 <defs>
                     <Gradients />
                 </defs>
@@ -313,11 +301,4 @@ const addRandomRadii = images => {
     return images;
 };
 
-const mapDispatchToProps = dispatch => ({
-    togglePaused: () => dispatch(togglePaused())
-});
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(withImages(Tides));
+export default connect(mapStateToProps)(withImages(Tides));
