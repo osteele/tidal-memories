@@ -11,6 +11,8 @@ from geventwebsocket.exceptions import WebSocketError
 from .image_resource import api as images_api
 from .thumbnails import SMALL_THUMBNAIL_DIR
 
+REDIS_CHAN = "sensor_data"
+
 app = Flask(__name__)
 app.config["SERVE_LOCAL_IMAGES"] = os.environ.get("SERVE_LOCAL_IMAGES")
 CORS(app)
@@ -34,32 +36,31 @@ if app.config["SERVE_LOCAL_IMAGES"]:
         return send_from_directory(str(SMALL_THUMBNAIL_DIR), str(filename))
 
 
-REDIS_CHAN = "sensor_data"
+if REDIS_URL:
 
+    @sockets.route("/sensor_data")
+    def sensor_data_route(ws):
+        def publish():
+            while not ws.closed:
+                data = ws.receive()
+                if data:
+                    # print(ws, "publish", data, type(data))
+                    redis_conn.publish(REDIS_CHAN, data)
 
-@sockets.route("/sensor_data")
-def sensor_data_route(ws):
-    def publish():
-        while not ws.closed:
-            data = ws.receive()
-            if data:
-                # print(ws, "publish", data, type(data))
-                redis_conn.publish(REDIS_CHAN, data)
+        def subscribe():
+            pubsub = redis_conn.pubsub()
+            pubsub.subscribe(REDIS_CHAN)
+            for message in pubsub.listen():
+                if message["type"] == "message":
+                    data = message.get("data")
+                    # print(ws, "send", data, type(data))
+                    try:
+                        ws.send(data.decode())
+                    except WebSocketError:
+                        return
 
-    def subscribe():
-        pubsub = redis_conn.pubsub()
-        pubsub.subscribe(REDIS_CHAN)
-        for message in pubsub.listen():
-            if message["type"] == "message":
-                data = message.get("data")
-                # print(ws, "send", data, type(data))
-                try:
-                    ws.send(data.decode())
-                except WebSocketError:
-                    return
-
-    gevent.spawn(subscribe)
-    publish()
+        gevent.spawn(subscribe)
+        publish()
 
 
 api = Api(app, doc="/docs/", title="Matrix Image Gallery API", version="0.1")

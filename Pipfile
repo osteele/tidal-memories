@@ -33,7 +33,6 @@ requests = "*"
 pyserial = "*"
 flask-sockets = "*"
 redis = "*"
+websocket-client = "*"
 
 [dev-packages]
-autopep8 = "*"
-ipython = "*"
