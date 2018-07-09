@@ -1,46 +1,34 @@
-# Matrix Photo Gallery
+# Tidal Memories
 
-A photo gallery for photos from a Matrix room.
+Tidal Memories is a visualization of Riot Matrix photos from [Dinacon
+2018](https://www.dinacon.org).
 
-This project is being developed as a platform for photo visualization
-experiments at [Dinacon 2018](https://www.dinacon.org).
+Photos are positioned up and down the intertidal zone according to the tide
+level when they were taken (or, at least, posted to Riot). They are positioned
+horizontally from midnight, to midnight the following day.
+
+Mouse over a photo to see its details.
+
+The tide indicates the current tide in Ko Lone, Phuket. At high tide, you won't
+see much.
 
 ![](./docs/screenshot.png)
+
+## Related
+
+[Matrix-gallery](https://github.com/osteele/matrix-gallery) is a more
+conventional photo gallery.
 
 ## Develop
 
 ### Setup
 
-Install Pipenv. Run `pipenv install`.
+Install Pipenv: `pipenv install`.
 
-Set these environment variables: `MATRIX_USER`, `MATRIX_PASSWORD`,
-`MATRIX_ROOM_IDS`.
-
-`MATRIX_ROOM_IDS` should be a comma-separated list of Matrix room IDs (or a
-single id). Run `pipenv run list_rooms.py` to list the room ids.
-
-Set `MONGODB_URI` to a MongoDB connection URL, *or* install a local MongoDB
-instance.
-
-`pipenv run import-images` imports images from Matrix events.
-
-Optional: `pipenv run make-small-thumbnails` creates smaller thumbnails than the
-Matrix thumbnails — which are still pretty large — and uploads them to the S3
-bucket named `BUCKET_NAME`.
+Set `API_SERVER_URL` to the address of a
+[matrix-gallery](https://github.com/osteele/matrix-gallery) server.
 
 ### Run
-
-Run the back end (server):
-
-```shell
-$ pipenv run server
-```
-
-or:
-
-```shell
-env FLASK_APP=back:app FLASK_ENV=development flask run
-```
 
 Run the front end (client):
 
@@ -51,14 +39,10 @@ $ pipenv run client
 or:
 
 ```shell
-$ cd front
+$ cd client
 $ yarn install
 $ yarn start
 ```
-
-If `SERVE_LOCAL_IMAGES` is set *and* `pipenv run make-small-thumbnails` has been
-run, the server will direct the client to use small thumbnail images from the
-local filesystem. This is intended for use in local development.
 
 ## License
 
