@@ -3,9 +3,9 @@
 Tidal Memories is a visualization of Riot Matrix photos from [Dinacon
 2018](https://www.dinacon.org).
 
-Photos are positioned up and down the intertidal zone according to the tide
+Photos are positioned vertical along the intertidal zone, according to the tide
 level when they were taken (or, at least, posted to Riot). They are positioned
-horizontally from midnight, to midnight the following day.
+horizontally from midnight on the left, to the following midnight on the right.
 
 Mouse over a photo to see its details.
 

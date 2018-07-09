@@ -7,6 +7,7 @@ import {
     getImageList,
     setSensorData,
     setWindowSize,
+    addMessage,
     updateTime
 } from './data/actions';
 import setupStore from './data/store';
@@ -26,12 +27,19 @@ const store = setupStore({
 });
 
 store.dispatch(getImageList());
+store.dispatch(
+    addMessage(
+        '<a target="_blank" href="https://github.com/osteele/tidal-memories#tidal-memories">About this page</a>'
+    )
+);
 
+// Heartbeat
 setInterval(
     () => store.getState().paused || store.dispatch(updateTime()),
     Math.floor(1000 / HEARTBEAT_HZ)
 );
 
+// Sensor data from Websocket
 const WEBSOCKET_URL = API_SERVER_URL.replace(/^http/, 'ws') + 'sensor_data';
 const sensorDataSocket = new WebSocket(WEBSOCKET_URL);
 sensorDataSocket.onerror = err => {
@@ -42,6 +50,7 @@ sensorDataSocket.onmessage = event => {
     store.dispatch(setSensorData(data, new Date()));
 };
 
+// Window size
 window.addEventListener('resize', () => {
     store.dispatch(
         setWindowSize({ width: window.innerWidth, height: window.innerHeight })
