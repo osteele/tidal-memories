@@ -16,7 +16,7 @@ see much.
 
 ## Related
 
-[Matrix-gallery](https://github.com/osteele/matrix-gallery) is a more
+[Matrix-photo-gallery](https://github.com/osteele/matrix-photo-gallery) is a more
 conventional photo gallery.
 
 ## Develop
@@ -26,7 +26,7 @@ conventional photo gallery.
 Install Pipenv: `pipenv install`.
 
 Set `API_SERVER_URL` to the address of a
-[matrix-gallery](https://github.com/osteele/matrix-gallery) server.
+[matrix-photo-gallery](https://github.com/osteele/matrix-photo-gallery) server.
 
 ### Run
 
