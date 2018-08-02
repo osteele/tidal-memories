@@ -3,9 +3,9 @@ from datetime import datetime
 from pathlib import Path
 
 import click
+import pandas
 
 import lxml.cssselect  # noqa: F401
-import pandas
 import requests
 from lxml import etree, html
 
@@ -43,7 +43,7 @@ def months_tide_array(year, months):
 
 @app.cli.command(name="write-tide-table")
 @click.option("--year", default=2008)
-@click.option("--months", default="3-7")
+@click.option("--months", default="3-12")
 @click.argument("output", default="./client/src/data/tide-table.json")
 def write_tide_table(year, months, output):
     path = Path(output)
